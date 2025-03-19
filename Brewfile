@@ -2,7 +2,7 @@
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
-tap 'stripe/stripe-cli'
+# tap 'stripe/stripe-cli'
 
 # Binaries
 brew 'awscli'
