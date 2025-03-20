@@ -1,19 +1,42 @@
 # Add directories to the PATH and prevent to add the same directory multiple times upon shell reload.
-add_to_path() {
-  if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
-    export PATH="$1:$PATH"
+append_path() {
+  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+     PATH="${PATH:+"$PATH:"}$1"
   fi
 }
 
-# Load dotfiles binaries
-add_to_path "$DOTFILES/bin"
+prepend_path() {
+  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+    # PATH="${PATH:+"$PATH:"}$1"
+    PATH="$1${PATH:+":$PATH"}"
+  fi
+}
 
-# Load global Composer tools
-add_to_path "$HOME/.composer/vendor/bin"
+## Higher priority, prepend last
+
+# Brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Load global Node installed binaries
-add_to_path "$HOME/.node/bin"
+# prepend_path "$HOME/.node/bin"
 
-# Use project specific binaries before global ones
-add_to_path "vendor/bin"
-add_to_path "node_modules/.bin"
+# Load dotfiles binaries
+append_path "$DOTFILES/bin"
+
+# Cumulus CI
+prepend_path "$HOME/.local/bin"
+
+# Prioritise Python versions installed by Brew - https://mac.install.guide/python/path
+prepend_path "$(brew --prefix python@3.12)/libexec/bin"
+#export PATH="$(brew --prefix python@3.13)/libexec/bin:$PATH"
+#export PATH="$(brew --prefix python)/libexec/bin:$PATH" # Will return the latest?
+
+
+
+
+# PATH including local Ruby gems, ie Travis
+# append_path "/.gem/ruby/3.0.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin"
+# append_path "/usr/local/opt/ruby/bin"
+
+# VS Code
+append_path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
