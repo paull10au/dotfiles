@@ -1,0 +1,14 @@
+# Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zprofile.pre.zsh"
+
+# Created by `pipx` on 2023-03-03 06:00:57
+# export PATH="$PATH:/Users/plucas/.local/bin"
+
+# https://salesforce.quip.com/DyfoAVtx4uJY
+# I installed qx but it states it cannot be found when I run it in vscode?
+# source /Users/plucas/.local/pipx/venvs/cumulusci/bin/activate
+
+#eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zprofile.post.zsh"

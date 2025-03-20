@@ -1,0 +1,14 @@
+# Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash"
+
+# Path to your dotfiles.
+export DOTFILES=$HOME/.dotfiles
+
+# https://stackoverflow.com/questions/23233603/how-to-load-bash-profile-when-entering-bash-from-within-zsh
+# [[ -f ~/.bashrc ]] && . ~/.bashrc
+[[ -f "${DOTFILES}/.bashrc" ]] && builtin source "${DOTFILES}/.bashrc"
+
+#eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"
