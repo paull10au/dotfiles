@@ -146,17 +146,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
-
-# added by travis gem
-# To do 11-09-2020
-# [ ! -s /Users/plucas/.travis/travis.sh ] || source /Users/plucas/.travis/travis.sh	
-
-# Created by `pipx` on 2023-03-03 06:00:57
-# export PATH="$PATH:/Users/plucas/.local/bin"
-
-# Fig has been replaced by Amazon Q below
-# [[ -f "$HOME/fig-export/dotfiles/dotfile.zsh" ]] && builtin source "$HOME/fig-export/dotfiles/dotfile.zsh"
-
 # Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
