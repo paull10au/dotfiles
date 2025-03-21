@@ -34,6 +34,7 @@ alias dockerbaseemu='docker pull ghcr.io/sfdc-qbranch-emu/qbrix-base-container-q
 alias dockerbase='docker pull ghcr.io/sfdc-qbranch-emu/qbrix-base-container-quasar:latest'
 
 # Shortcuts
+alias path="echo '$PATH'"
 alias bashprofile="code $DOTFILES/.bash_profile"
 alias bashrc="code $DOTFILES/.bashrc"
 alias rbashprofile="source $DOTFILES/.bash_profile"
