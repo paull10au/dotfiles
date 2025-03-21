@@ -34,14 +34,14 @@ alias dockerbaseemu='docker pull ghcr.io/sfdc-qbranch-emu/qbrix-base-container-q
 alias dockerbase='docker pull ghcr.io/sfdc-qbranch-emu/qbrix-base-container-quasar:latest'
 
 # Shortcuts
-alias path="echo '$PATH'"
+alias path='tr ":" "\n" <<< "$PATH"'
 alias bashprofile="code $DOTFILES/.bash_profile"
 alias bashrc="code $DOTFILES/.bashrc"
 alias rbashprofile="source $DOTFILES/.bash_profile"
 alias rbashrc="source $DOTFILES/.bashrc"
 alias r=rbashprofile
-# alias rz="source $DOTFILES/.zshrc"
-alias rz="omz reload"
+alias rz="source $DOTFILES/.zshrc"
+# alias rz="omz reload"
 alias ..="cd .."
 alias ll="ls -l"
 alias lsa="ls -al"
@@ -123,7 +123,7 @@ alias reinstallcci='uninstallcci && pipxcciqsr'
 
 
 # Python
-alias python=python3
+# alias python=python3
 #alias python=python3.12
 alias allpython='which -a python3'
 alias upgradepip='python3.12 -m pip install --upgrade pip'
