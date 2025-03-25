@@ -17,7 +17,8 @@ alias cleanupbrew='brew cleanup'
 #alias updatesfdx='sfdx update'
 #alias updatesf='sf update'
 alias updatesf='npm update --global @salesforce/cli' # March 18 2024
-alias updateheroku='heroku update'
+# alias updateheroku='heroku update'
+alias updateheroku='brew upgrade heroku'
 alias updatetools='updatebrew && updatesf && updateheroku && cciversion'
 alias updateall='updatetools'
 
@@ -148,8 +149,8 @@ alias newvenv='python3 -m venv /Users/plucas/.local/pipx/venvs/xxx' # or you can
 ## Run activatecci before installing
 alias upgradegcm='brew upgrade --cask git-credential-manager'
 alias installqx='activatecci && python3 -m pip install "qbrix-cli @ git+https://github.com/sfdc-qbranch-emu/qbrix_cli.git@main"'
-alias updateqx='qx update'
-alias qxupdate='qx update'
+alias updateqx='qx update --include_extensions False'
+alias qxupdate='qx update --include_extensions False'
 
 # Robot Framework Browser
 alias initbrowser='rfbrowser init'
