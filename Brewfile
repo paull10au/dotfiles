@@ -8,6 +8,9 @@ tap 'homebrew/bundle'
 # Binaries
 brew 'awscli'
 
+# brew iterm2
+# brew "python@3.12"
+
 # brew 'bash' # Latest Bash version
 # brew 'bat'
 # brew 'coreutils' # Those that come with macOS are outdated
@@ -21,7 +24,7 @@ brew 'awscli'
 # brew 'mas' # Mac App Store manager
 # brew "node"
 # brew "pipx"
-# brew "python@3.12"
+
 
 # brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
 # brew 'svn' # Needed to install fonts
@@ -40,7 +43,7 @@ brew 'awscli'
 # cask "postman-cli"
 # cask 'visual-studio-code'
 
-
+cask foobar2000
 
 # cask 'caffeine'
 # cask 'discord'
