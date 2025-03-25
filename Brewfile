@@ -8,14 +8,17 @@ tap 'homebrew/bundle'
 # Binaries
 brew 'awscli'
 
+
 # brew iterm2
+# brew 'gh'
 # brew "python@3.12"
+# brew heroku
 
 # brew 'bash' # Latest Bash version
 # brew 'bat'
 # brew 'coreutils' # Those that come with macOS are outdated
 # brew 'ffmpeg'
-# brew 'gh'
+
 # brew 'git'
 # brew 'grep'
 # brew 'httpie'
@@ -23,7 +26,7 @@ brew 'awscli'
 # # brew 'mackup' # Does no work on > Sonoma https://www.reddit.com/r/macapps/comments/1f1j41a/avoid_mackup_if_you_are_runing_sonoma_or_later/
 # brew 'mas' # Mac App Store manager
 # brew "node"
-# brew "pipx"
+# brew "pipx" # Install system wide using pip
 
 
 # brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
