@@ -43,6 +43,7 @@ alias rbashrc="source $DOTFILES/.bashrc"
 alias r=rbashprofile
 alias rz="source $DOTFILES/.zshrc"
 # alias rz="omz reload"
+alias cd..="cd .."
 alias ..="cd .."
 alias ll="ls -l"
 alias lsa="ls -al"
