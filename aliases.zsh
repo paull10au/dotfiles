@@ -44,6 +44,7 @@ alias r=rbashprofile
 alias rz="source $DOTFILES/.zshrc"
 # alias rz="omz reload"
 alias cd..="cd .."
+alias cd,,="cd .."
 alias ..="cd .."
 alias ll="ls -l"
 alias lsa="ls -al"
@@ -70,6 +71,7 @@ alias paull="cd $HOME/Paull"
 # Frequently used directories - Defined in fig dotfile aliases
 alias qbranch="cd $HOME/Paull/Q\ Branch/Q\ Brix/"
 alias qbrix="cd $HOME/Paull/Q\ Branch"
+alias soma="cd $HOME/Paull/Q\ Branch/soma"
 alias emu="cd $HOME/Paull/Q\ Branch/Q\ Brix/emu"
 alias qtools="cd ~/Paull/Q\ Branch/Q\ Tools"
 
