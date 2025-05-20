@@ -16,7 +16,7 @@ alias updatebrew='brew update && brew upgrade'
 alias cleanupbrew='brew cleanup'
 #alias updatesfdx='sfdx update'
 #alias updatesf='sf update'
-alias updatesf='npm update --global @salesforce/cli' # March 18 2024
+alias updatesf='npm update --global @salesforce/cli && sf plugins update' # March 18 2024
 # alias updateheroku='heroku update'
 alias updateheroku='brew upgrade heroku'
 alias updatetools='updatebrew && updatesf && updateheroku && cciversion'
@@ -69,8 +69,8 @@ alias library="cd $HOME/Library"
 alias paull="cd $HOME/Paull"
 
 # Frequently used directories - Defined in fig dotfile aliases
-alias qbranch="cd $HOME/Paull/Q\ Branch/Q\ Brix/"
-alias qbrix="cd $HOME/Paull/Q\ Branch"
+alias qbrix="cd $HOME/Paull/Q\ Branch/Q\ Brix/"
+alias qbranch="cd $HOME/Paull/Q\ Branch"
 alias soma="cd $HOME/Paull/Q\ Branch/soma"
 alias emu="cd $HOME/Paull/Q\ Branch/Q\ Brix/emu"
 alias qtools="cd ~/Paull/Q\ Branch/Q\ Tools"
