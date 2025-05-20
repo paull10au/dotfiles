@@ -1,19 +1,25 @@
 # Brew Bundle Brewfile Tips
 # https://gist.github.com/ChristopherA/a579274536aab36ea9966f301ff14f3f
 
+# To run this file manually: 
+# $ brew bundle --file ./Brewfile
+
 # Taps
 tap 'homebrew/bundle'
 # tap 'stripe/stripe-cli'
 
 # Binaries
-brew 'awscli'
+# brew 'awscli' -- Optional?
 
-
-# brew iterm2
+# brew 'node'
+# brew 'iterm2'
 # brew 'gh'
-# brew "python@3.12"
-# brew heroku
+# brew 'python@3.12'
+# brew 'heroku'
 
+# brew "pipx" # Install system wide using pip
+
+## Optional
 # brew 'bash' # Latest Bash version
 # brew 'bat'
 # brew 'coreutils' # Those that come with macOS are outdated
@@ -23,11 +29,8 @@ brew 'awscli'
 # brew 'grep'
 # brew 'httpie'
 # brew 'jq' 
-# # brew 'mackup' # Does no work on > Sonoma https://www.reddit.com/r/macapps/comments/1f1j41a/avoid_mackup_if_you_are_runing_sonoma_or_later/
 # brew 'mas' # Mac App Store manager
-# brew "node"
-# brew "pipx" # Install system wide using pip
-
+# # brew 'mackup' # Does not work on > Sonoma https://www.reddit.com/r/macapps/comments/1f1j41a/avoid_mackup_if_you_are_runing_sonoma_or_later/
 
 # brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
 # brew 'svn' # Needed to install fonts
@@ -39,14 +42,20 @@ brew 'awscli'
 
 
 # Apps
-# cask "git-credential-manager"
+# cask 'dbeaver-community'
+# cask 'foobar2000'
+# cask 'git-credential-manager'
+#  cask 'iina'
+#  cask 'vlc'
+cask 'postman'
+
+
 # cask "intellij-idea"
 # cask "newman"
 # cask "postman"
 # cask "postman-cli"
 # cask 'visual-studio-code'
 
-cask foobar2000
 
 # cask 'caffeine'
 # cask 'discord'
@@ -62,11 +71,11 @@ cask foobar2000
 # cask 'tuple'
 
 
-# Quicklook
+# Quicklook - TBA
 # cask 'qlmarkdown'
 # cask 'quicklook-json'
 
-# Fonts
+# Fonts - TBA
 # cask 'font-lato'
 # cask 'font-open-sans'
 # cask 'font-roboto'
@@ -75,7 +84,7 @@ cask foobar2000
 # cask 'font-source-sans-pro'
 # cask 'font-source-serif-pro'
 
-# Mac App Store
+# Mac App Store - TBA
 # mas 'Byword', id: 420212497
 # mas 'Giphy Capture', id: 668208984
 # mas 'Keynote', id: 409183694
