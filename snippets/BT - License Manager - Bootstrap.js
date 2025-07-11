@@ -105,13 +105,15 @@ class LicenseManager {
     get licenseRows() {
         if (this.licenseSection) {
 
-            if (this.#licenseRows.size() == 0) {
+            if (this.#licenseRows.length == 0) {
                 this.#licenseRows = [...this.licenseSection.querySelectorAll('table.list.container tbody tr')];
             }
                 
-            // check for nodelist else return empty?
-            return this.#licenseRows;
+            // // check for nodelist else return empty?
+            // return this.#licenseRows;
         }
+
+        return this.#licenseRows;
     }
 
     get licenses() {
@@ -163,20 +165,26 @@ class LicenseManager {
         let self = this;
         
         const matchedRowsHandler = function (row) {
-            let name = row.textContent ? row.textContent.trim().replace('0\n\n', '') : '';
+            // let name = row.textContent ? row.textContent.trim().replace('0\n\n', '') : '';
+            // let name = row.textContent ? row.textContent.trim() : '';
+            // const nameCell = 
+                
+            let name = row.querySelector('td:nth-of-type(3) label').textContent.trim();
             let quantityCell = row.cells[1].querySelector("input[type='text']");
-            let quantity = quantityCell ? quantityCell.value : 0;
+            let quantity = quantityCell ? quantityCell.value : '0';
             let selected = row.cells[0].querySelector("input[type='checkbox']").checked;
             let searchMode = caseSensitive ? '' : 'i';
                 
             // TODO: Review logic - always match and return true?
             // if (!licenseName || (licenseName && name.includes(licenseName))) {
             if (!licenseName || (licenseName && new RegExp(licenseName, searchMode).test(name))) {
-                if (isSelected && selected ||
-                   !isSelected && !selected) {
+
+                // TODO: Review: Return every license row, convert isSelected to enum [ALL, SELECTED]
+            //    if (isSelected && selected ||
+            //       !isSelected && !selected) {
                     // self.#licenses.push(new License(selected, name, quantity));
                     self.licenses = new License(selected, name, quantity);
-                }
+            //    }
             }
         }
         
@@ -185,30 +193,6 @@ class LicenseManager {
         
         // this.#getLicenseRows().forEach( matchedRowsHandler );
         this.licenseRows.forEach( matchedRowsHandler );
-
-        // this.getLicenseRows().forEach( (row) => {
-
-        //     name = row.textContent ? row.textContent.trim().replace('0\n\n', '') : '';
-        //     quantityCell = row.cells[1].querySelector("input[type='text']");
-        //     quantity = quantityCell ? quantityCell.value : 0;
-        //     selected = row.cells[0].querySelector("input[type='checkbox']").checked;
-
-        //     // TODO: Review logic - always match and return true?
-        //     if (!licenseName || (licenseName && name.includes(licenseName))) {
-        //         if (isSelected && selected ||
-        //            !isSelected && !selected) {
-        //             this.#licenses.push(new License(selected, name, quantity));
-        //         }
-        //         // else if (isSelected && selected) {
-        //         //     this.#licenses.push(new License(selected, name, quantity));
-        //         // }
-        //         // else if (!isSelected && !selected) {
-        //         //     this.#licenses.push(new License(selected, name, quantity));
-        //         // }
-        //     }
-        // })
-    
-        // return this.#licenses;
         
         return this;
     }
@@ -241,14 +225,20 @@ class LicenseManager {
     async #load(host) {
         let data = [];
         let response;
-        let url = (host) ? host : `${HOST}/${this.type}.json`;
+        let url = (host) ? host : HOST;
         
         // request.open('GET', 'https://cors-anywhere.herokuapp.com/https://github.com/sfdc-qbranch-emu/QBrix-5-GDO/blob/main/test.json');
         // request.open('GET', 'https://github.com/sfdc-qbranch-emu/QBrix-5-GDO/blob/main/test.json');
         // request.open('GET', 'https://d229ymq143gne.cloudfront.net/shared-demos/Edition+Licenses.json');
+        
+        // https://d1iogxpqpgyw1s.cloudfront.net/shared-orgs/cirrus360/Licenses/Edition%20Licenses.json
+        // https://d1iogxpqpgyw1s.cloudfront.net/shared-orgs/cirrus360/Licenses/Addon%20Licenses.json
+        // https://d1iogxpqpgyw1s.cloudfront.net/shared-orgs/cirrus360/Licenses/Platform%20Licenses.json
+        // https://d1iogxpqpgyw1s.cloudfront.net/shared-orgs/cirrus360/Licenses/User%20Licenses.json
 
         try {
-            response = await fetch('https://d1iogxpqpgyw1s.cloudfront.net/shared-orgs/cirrus360/Licenses/Edition+Licenses.json', {
+            // response = await fetch(`https://d1iogxpqpgyw1s.cloudfront.net/shared-orgs/cirrus360/Licenses/${this.type}.json`, {
+            response = await fetch(`${url}/${this.type}.json`, {
                     method: 'GET',
                     mode: 'cors',
                     cache: 'no-store'})
@@ -341,27 +331,31 @@ class LicenseManager {
         anchor.click();
     }
 
-    async delta(mode = LicenseManager.DELTA_MODE.ORG) {
+    async delta(mode = LicenseManager.DELTA_MODE.ORG, url) {
         let self = this;
-        let file = await this.#load();
+        let file = await this.#load(url);
         let org = this.licenseRows;
         
         const matchingFileLicenseHandler = function (row) {
             let hasMatched = false;
             let name;
             let license;
+            let quantity;
             let isEditable = (row.cells[1].querySelector("input[type='text']"));
 
             if (isEditable && row.cells[0].querySelector("input[type='checkbox']").checked) {
-                name = row.textContent ? row.textContent.trim() : '';
+                //name = row.textContent ? row.textContent.trim() : '';
+                name = row.querySelector('td:nth-of-type(3) label').textContent.trim();
 
                 for (let i = file.length - 1; i >= 0; i--) {
                     license = file[i];
                     
                     if (name === license.name) {
+                        quantity = +license.quantity === +license.quantity ? +license.quantity : 0;
+                        
                         // TODO: Marshall into a License object instance
                         if (license.selected &&
-                            row.cells[1].querySelector("input[type='text']").value === license.quantity) {
+                            row.cells[1].querySelector("input[type='text']").value == quantity) {
                             file.splice(i, 1);
                             hasMatched = true;
                             break;
@@ -393,18 +387,22 @@ class LicenseManager {
         
         const matchingOrgLicenseHandler = function (license) {
             let name;
+            let quantity;
 
             org.some( (row) => {
 
                 let isEditable = (row.cells[1].querySelector("input[type='text']"));
 
                 if (isEditable) {
-                    name = row.textContent ? row.textContent.trim() : '';
+                    //name = row.textContent ? row.textContent.trim() : '';
+                    name = row.querySelector('td:nth-of-type(3) label').textContent.trim();
                     
                     if (name === license.name) {
+                        quantity = +license.quantity === +license.quantity ? +license.quantity : 0;
+                        
                         // TODO: Marshall into a License object instance
-                        if (row.cells[0].querySelector("input[type='checkbox']").checked &&
-                            row.cells[1].querySelector("input[type='text']").value === license.quantity) {
+                        if (row.cells[0].querySelector("input[type='checkbox']").checked == license.selected &&
+                            row.cells[1].querySelector("input[type='text']").value == quantity) {
                             
                             return true;
                         }
@@ -442,14 +440,14 @@ class LicenseManager {
         return this;
     }
     
-    async import(licenses = null, mode = LicenseManager.IMPORT_MODE.OVERWRITE) {
+    async import(licenses = null, mode = LicenseManager.IMPORT_MODE.OVERWRITE, url) {
         let self = this;
         
-        let file = (licenses) ? licenses : await this.#load();
+        let file = (licenses) ? licenses : await this.#load(url);
         let org = this.licenseRows;
 
         const licenseResetHandler = function(row) {
-            let isEditable = (row.cells[1].querySelector("input[type='text']"));
+            let isEditable = !!(row.cells[1].querySelector("input[type='text']"));
 
             if (isEditable) {
                 row.cells[0].querySelector("input[type='checkbox']").checked = false;
@@ -459,19 +457,31 @@ class LicenseManager {
         
         const matchedLicenseHandler = function (license) {
             let name;
+            let isEditable = false;
+            let quantity;
             
             org.some( (row) => {
-                name = row.textContent ? row.textContent.trim() : '';
-                
-                if (name === license.name) {
-                    row.cells[0].querySelector("input[type='checkbox']").checked = license.selected;
-                    row.cells[1].querySelector("input[type='text']").value = license.quantity;
+                //name = row.textContent ? row.textContent.trim() : '';
+                isEditable = !!(row.cells[1].querySelector("input[type='text']"))
 
-                    return true;
+                if (isEditable) {
+                    name = row.querySelector('td:nth-of-type(3) label').textContent.trim();
+                    
+                    if (name === license.name) {
+                        // TODO: Review whether we always select the license if a quantity is provided
+                        // row.cells[0].querySelector("input[type='checkbox']").checked = license.selected;
+                        quantity = +license.quantity === +license.quantity ? +license.quantity : 0;
+
+                        if (quantity > 0) {
+                            row.cells[0].querySelector("input[type='checkbox']").checked = true;
+                            row.cells[1].querySelector("input[type='text']").value = quantity;
+                        }
+                        
+                        return true;
+                    }
                 }
             });
         }
-
         
         if (mode === LicenseManager.IMPORT_MODE.MIRROR) {
             org.forEach( licenseResetHandler )
@@ -497,4 +507,23 @@ class LicenseManager {
     //     })
     // }
     
+}
+
+// Create shortcut elements
+const actionButtonContainer = document.querySelector('div.pbBottomButtons td.pbButtonb');
+const licenseEditorButtonModal = document.querySelector("input.btn[name='licenseEditor']"); 
+let licenseEditorButtonInline;
+let orgHistoryButtonInline;
+
+if (actionButtonContainer && licenseEditorButtonModal) {
+    licenseEditorButtonInline = licenseEditorButtonModal.cloneNode();
+    orgHistoryButtonInline = licenseEditorButtonModal.cloneNode();
+
+    licenseEditorButtonInline.onclick = () => { window.location.href = '/licensing/licenseEditor.apexp'; }
+    licenseEditorButtonInline.value = 'License Editor Inline';
+    actionButtonContainer.appendChild(licenseEditorButtonInline);
+    
+    orgHistoryButtonInline.onclick = () => { window.location.href = '/setup/org/orgHistory.jsp'; }
+    orgHistoryButtonInline.value = 'Org History Inline';
+    actionButtonContainer.appendChild(orgHistoryButtonInline);
 }
